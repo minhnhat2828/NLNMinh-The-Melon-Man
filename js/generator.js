@@ -26,14 +26,14 @@ game.structures = {
 game.generateMap = function () {
 	// Generate a platform for the player
 	this.map.structures.push({
-		name: "grassPlatform",
+		name: "lava_platform",
 		x: 0,
 		y: 0
 	})
 	// Generate the rest of the platforms
 	for (var i = 1; i < 20; i++) {
 		this.map.structures.push({
-			name: "grassPlatform",
+			name: "lava_platform",
 			x: Math.floor(Math.random() * 8),
 			y: -i * 3
 		})
@@ -90,7 +90,7 @@ game.generateMap = function () {
 
 	for (var i = 120; i < 140; i++) {
 		this.map.structures.push({
-			name: "lava_platform",
+			name: "grassPlatform",
 			x: Math.floor(Math.random() * 8),
 			y: -i * 3
 		})
