@@ -6,6 +6,7 @@ game.player = {
 	direction: "left",
 	isInAir: false,
 	startedJump: false,
+	canDoubleJump: true, // Thêm Variable nhảy đôi
 	moveInterval: null,
 	fallTimeout: function(startingY, time, maxHeight) {
 		setTimeout( function () {
@@ -43,14 +44,20 @@ game.player = {
 		right: [{tileColumn: 9, tileRow: 0}, {tileColumn: 8, tileRow: 0}, {tileColumn: 9, tileRow: 0}, {tileColumn: 7, tileRow: 0}]
 	},
 	jump: function (type) {
-		if (!this.isInAir) {
+		if (!this.isInAir || (this.isInAir && this.canDoubleJump)) { 
 			clearInterval(this.fallInterval)
 			game.sounds.jump.play()
-			this.isInAir = true
+	
+			if (this.isInAir) {
+				this.canDoubleJump = false; // Nếu đang trên không và nhảy lần thứ hai, tắt nhảy đôi
+			} else {
+				this.isInAir = true; // Nếu là lần nhảy đầu tiên, đặt isInAir thành true
+			}
+	
 			this.startedJump = true
 			var startingY = this.y
 			var time = 1
-			maxHeight = 121
+			var maxHeight = 121
 			if (type == "fall") {
 				time = 30
 				maxHeight = 0
